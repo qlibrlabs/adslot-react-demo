@@ -4,7 +4,7 @@ import { AdSlot } from 'nlcyber-adslot';
 function AdSlotDemo() {
     const [debugMode, setDebugMode] = useState(false);
     const [adCount, setAdCount] = useState(5);
-    const [baseUrl, setBaseUrl] = useState('');
+    const [baseUrl, setBaseUrl] = useState('http://localhost:3000');
 
     return (
         <div className="container">
@@ -272,6 +272,50 @@ function AdSlotDemo() {
     );
 }
 
+// Error boundary component to prevent the entire app from crashing
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        // eslint-disable-next-line no-console
+        console.error('AdSlot Demo Error:', error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div style={{ 
+                    padding: '2rem', 
+                    textAlign: 'center', 
+                    background: '#f8d7da', 
+                    color: '#721c24',
+                    border: '1px solid #f5c6cb',
+                    borderRadius: '8px',
+                    margin: '2rem'
+                }}>
+                    <h2>Something went wrong</h2>
+                    <p>There was an error loading the AdSlot demo.</p>
+                    <details style={{ marginTop: '1rem', textAlign: 'left' }}>
+                        <summary>Error Details</summary>
+                        <pre style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
+                            {this.state.error && this.state.error.toString()}
+                        </pre>
+                    </details>
+                </div>
+            );
+        }
+
+        return this.props.children;
+    }
+}
+
 function App() {
     const [loadError, setLoadError] = useState(null);
     useEffect(() => {
@@ -309,7 +353,9 @@ function App() {
     }
 
     return (
-        <AdSlotDemo />
+        <ErrorBoundary>
+            <AdSlotDemo />
+        </ErrorBoundary>
     );
 }
 
