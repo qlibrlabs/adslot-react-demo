@@ -15,7 +15,7 @@ This demo application provides an interactive showcase of the `nlcyber-adslot` p
 - 🎨 **Custom Styling** - Modern, clean UI with hover effects
 - ⚡ **Live Updates** - Configuration changes update ads in real-time
 
-## Quick Start (React + Vite)
+## Quick Start (Next.js 15 + React 19)
 
 ### Prerequisites
 
@@ -40,22 +40,23 @@ Open `http://localhost:3000`.
 
 ```
 adslot-demo/
-├── index.html
-├── src/
-│   ├── main.tsx
-│   ├── App.jsx
-│   └── styles.css
-├── styles.css          # Legacy CSS imported by src/styles.css
+├── app/
+│   ├── components/
+│   │   └── AdSlotDemo.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
 ├── package.json
 ├── tsconfig.json
-├── vite.config.ts
+├── next.config.js
 └── README.md
 ```
 
 ## Notes
 
-- The demo now uses ESM imports: `import { AdSlot } from 'nlcyber-adslot'`.
-- The legacy `app.js` and proxy server are no longer used with Vite.
+- The demo now uses Next.js 15 with the App Router and React 19.
+- The demo uses ESM imports: `import { AdSlot } from 'nlcyber-adslot'`.
+- API requests to `/api/*` are automatically proxied to `https://nlca.nlcyber.com/api/*` via Next.js rewrites.
 
 ## Demo Sections
 
@@ -178,10 +179,12 @@ function App() {
 }
 ```
 
-### Next.js Integration
+### Next.js Integration (App Router)
 
-```jsx
-// pages/index.tsx
+```tsx
+// app/page.tsx
+'use client';
+
 import { AdSlot } from 'nlcyber-adslot';
 
 export default function HomePage() {
@@ -189,16 +192,18 @@ export default function HomePage() {
     <div>
       <h1>Welcome to My Site</h1>
       <AdSlot placement="homepage_top" />
-      
+
       <main>
         <p>Your content here...</p>
       </main>
-      
+
       <AdSlot placement="article_sidebar" />
     </div>
   );
 }
 ```
+
+Note: The `'use client'` directive is required when using the AdSlot component in Next.js App Router since it uses React hooks.
 
 ## Styling
 
