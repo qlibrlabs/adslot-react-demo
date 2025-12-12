@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { AdSlot } from 'nlcyber-adslot';
 
-function AdSlotDemo() {
+export default function AdSlotDemo() {
     const [debugMode, setDebugMode] = useState(false);
     const [adCount, setAdCount] = useState(5);
     const [baseUrl, setBaseUrl] = useState('http://localhost:3000');
@@ -27,12 +29,12 @@ function AdSlotDemo() {
                     <section id="homepage" className="demo-section">
                         <h2>Homepage Banner Ad</h2>
                         <p>This demonstrates a standard banner ad placement at the top of a homepage. The ad will automatically select from available campaigns and handle frequency capping.</p>
-                        
+
                         <div className="banner-ad">
                             <div className="ad-header">Homepage Top Banner (728x90)</div>
                             <div className="ad-content">
                                 {AdSlot ? (
-                                    <AdSlot 
+                                    <AdSlot
                                         placement="homepage_top"
                                         width={728}
                                         height={90}
@@ -51,7 +53,7 @@ function AdSlotDemo() {
                         </div>
 
                         <div className="code-example">
-                            <pre>{`<AdSlot 
+                            <pre>{`<AdSlot
   placement="homepage_top"
   width={728}
   height={90}
@@ -67,12 +69,12 @@ function AdSlotDemo() {
                     <section id="article" className="demo-section">
                         <h2>Article Content Integration</h2>
                         <p>Ads can be seamlessly integrated within article content. This example shows how ads appear in the natural flow of content.</p>
-                        
+
                         <div className="banner-ad">
                             <div className="ad-header">Article Banner (728x90)</div>
                             <div className="ad-content">
                                 {AdSlot ? (
-                                    <AdSlot 
+                                    <AdSlot
                                         placement="article_banner"
                                         width={728}
                                         height={90}
@@ -90,7 +92,7 @@ function AdSlotDemo() {
                         </div>
 
                         <div className="code-example">
-                            <pre>{`<AdSlot 
+                            <pre>{`<AdSlot
   placement="article_banner"
   width={728}
   height={90}
@@ -110,22 +112,22 @@ function AdSlotDemo() {
                             <div style={{ marginBottom: '1rem' }}>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
                                     Debug Mode:
-                                    <input 
-                                        type="checkbox" 
+                                    <input
+                                        type="checkbox"
                                         checked={debugMode}
                                         onChange={(e) => setDebugMode(e.target.checked)}
                                         style={{ marginLeft: '0.5rem' }}
                                     />
                                 </label>
                             </div>
-                            
+
                             <div style={{ marginBottom: '1rem' }}>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
                                     Ad Count: {adCount}
-                                    <input 
-                                        type="range" 
-                                        min="1" 
-                                        max="10" 
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="10"
                                         value={adCount}
                                         onChange={(e) => setAdCount(parseInt(e.target.value))}
                                         style={{ width: '100%', marginTop: '0.5rem' }}
@@ -136,8 +138,8 @@ function AdSlotDemo() {
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
                                     Base URL:
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         value={baseUrl}
                                         onChange={(e) => setBaseUrl(e.target.value)}
                                         style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
@@ -202,7 +204,7 @@ function AdSlotDemo() {
                         <div className="ad-header">Sidebar Ad (300x250)</div>
                         <div className="ad-content">
                             {AdSlot ? (
-                                <AdSlot 
+                                <AdSlot
                                     placement="article_sidebar"
                                     width={300}
                                     height={250}
@@ -223,7 +225,7 @@ function AdSlotDemo() {
                         <div className="ad-header">Square Ad (250x250)</div>
                         <div className="ad-content">
                             {AdSlot ? (
-                                <AdSlot 
+                                <AdSlot
                                     placement="sidebar_square"
                                     width={250}
                                     height={250}
@@ -244,7 +246,7 @@ function AdSlotDemo() {
                         <div className="ad-header">Skyscraper (160x600)</div>
                         <div className="ad-content">
                             {AdSlot ? (
-                                <AdSlot 
+                                <AdSlot
                                     placement="sidebar_skyscraper"
                                     width={160}
                                     height={600}
@@ -265,100 +267,9 @@ function AdSlotDemo() {
 
             <footer className="footer">
                 <div className="container">
-                    <p>&copy; 2024 NLCyber AdSlot Demo. Built with React and the NLCyber AdSlot component.</p>
+                    <p>&copy; 2024 NLCyber AdSlot Demo. Built with Next.js, React, and the NLCyber AdSlot component.</p>
                 </div>
             </footer>
         </div>
     );
 }
-
-// Error boundary component to prevent the entire app from crashing
-class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false, error: null };
-    }
-
-    static getDerivedStateFromError(error) {
-        return { hasError: true, error };
-    }
-
-    componentDidCatch(error, errorInfo) {
-        // eslint-disable-next-line no-console
-        console.error('AdSlot Demo Error:', error, errorInfo);
-    }
-
-    render() {
-        if (this.state.hasError) {
-            return (
-                <div style={{ 
-                    padding: '2rem', 
-                    textAlign: 'center', 
-                    background: '#f8d7da', 
-                    color: '#721c24',
-                    border: '1px solid #f5c6cb',
-                    borderRadius: '8px',
-                    margin: '2rem'
-                }}>
-                    <h2>Something went wrong</h2>
-                    <p>There was an error loading the AdSlot demo.</p>
-                    <details style={{ marginTop: '1rem', textAlign: 'left' }}>
-                        <summary>Error Details</summary>
-                        <pre style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
-                            {this.state.error && this.state.error.toString()}
-                        </pre>
-                    </details>
-                </div>
-            );
-        }
-
-        return this.props.children;
-    }
-}
-
-function App() {
-    const [loadError, setLoadError] = useState(null);
-    useEffect(() => {
-        try {
-            if (!AdSlot) {
-                setLoadError('Failed to load AdSlot component. Ensure nlcyber-adslot is installed.');
-            }
-        } catch (e) {
-            setLoadError('Error initializing AdSlot: ' + (e?.message || String(e)));
-        }
-    }, []);
-
-    if (loadError) {
-        return (
-            <div style={{ 
-                padding: '2rem', 
-                textAlign: 'center', 
-                background: '#f8d7da', 
-                color: '#721c24',
-                border: '1px solid #f5c6cb',
-                borderRadius: '8px',
-                margin: '2rem'
-            }}>
-                <h2>AdSlot Component Not Available</h2>
-                <p>{loadError}</p>
-                <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
-                    Make sure you have installed the nlcyber-adslot package:
-                    <br />
-                    <code style={{ background: '#fff', padding: '0.25rem', borderRadius: '4px' }}>
-                        npm install nlcyber-adslot
-                    </code>
-                </p>
-            </div>
-        );
-    }
-
-    return (
-        <ErrorBoundary>
-            <AdSlotDemo />
-        </ErrorBoundary>
-    );
-}
-
-export default App;
-
-

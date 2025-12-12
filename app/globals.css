@@ -225,24 +225,24 @@ body {
     .main {
         grid-template-columns: 1fr;
     }
-    
+
     .header h1 {
         font-size: 2rem;
     }
-    
+
     .nav-list {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .features {
         grid-template-columns: 1fr;
     }
-    
+
     .container {
         padding: 0 0.5rem;
     }
-    
+
     .content {
         padding: 1rem;
     }
